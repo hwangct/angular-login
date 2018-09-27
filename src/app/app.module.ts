@@ -23,11 +23,26 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { FirstComponent } from './first/first.component';
 import { SecondComponent } from './second/second.component';
 import { RouterModule, Routes } from '@angular/router';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
+/**
+ * Routing
+ * 
+ * 1) pathMatch is required with redirectTo
+ * 2) pathMatch should be set to full when path is set to ''
+ * 3) wildcard case when path is set to '**'
+ */
 const appRoutes: Routes = [
-  { path: '', component: FirstComponent, data: { title: 'First Component' } },
+  { path: '', redirectTo: '/second', pathMatch: 'full', data: { title: 'Default Component' } },
   { path: 'first', component: FirstComponent, data: { title: 'First Component' } },
-  { path: 'second', component: SecondComponent, data: { title: 'Second Component' } }
+  { path: 'second', component: SecondComponent, data: { title: 'Second Component' } },
+  {
+    path: '**',
+    component: PageNotFoundComponent,
+    data: {
+      title: 'Page Not Found'
+    }
+  }
 ];
 
 @NgModule({
@@ -37,7 +52,8 @@ const appRoutes: Routes = [
     LoginFieldComponent,
     NavigationComponent,
     FirstComponent,
-    SecondComponent
+    SecondComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserAnimationsModule,
